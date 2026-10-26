@@ -6,6 +6,10 @@ $routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginVie
 $routes->post('login', '\CodeIgniter\Shield\Controllers\LoginController::loginAction', ['filter'=>'auth-rates']);
 $routes->post('logout', '\CodeIgniter\Shield\Controllers\LoginController::logoutAction', ['as'=>'logout','filter'=>'session']);
 $routes->group('', ['filter'=>'session'], static function($routes) {
+    $routes->get('importaciones','InventoryImport::index',['filter'=>'inventory-access:inventory.import']);
+    $routes->post('importaciones','InventoryImport::upload',['filter'=>'inventory-access:inventory.import']);
+    $routes->get('importaciones/(:num)','InventoryImport::show/$1',['filter'=>'inventory-access:inventory.import']);
+    $routes->post('importaciones/(:num)/confirmar','InventoryImport::confirm/$1',['filter'=>'inventory-access:inventory.import']);
     $routes->get('/', 'Inventory::index',['filter'=>'inventory-access:inventory.view']);
     $routes->get('inventario', 'Inventory::index',['filter'=>'inventory-access:inventory.view']);
     $routes->get('inventario/nuevo', 'Inventory::form',['filter'=>'inventory-access:inventory.manage']);

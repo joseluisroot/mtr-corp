@@ -4,10 +4,11 @@ namespace App\Services;
 
 final class InventoryState
 {
-    public const LABELS = ['available'=>'Disponible','negotiating'=>'En negociación','reserved'=>'Reservado','sold'=>'Vendido','blocked'=>'Bloqueado'];
+    public const LABELS = ['available'=>'Disponible','negotiating'=>'En negociación','reserved'=>'Reservado','sold'=>'Vendido','blocked'=>'Bloqueado','review'=>'Pendiente de expediente'];
 
     public static function effective(array $lot): string
     {
+        if(!empty($lot['import_review_required'])) return 'review';
         // Existing commitments remain visible even when future commercialization is blocked.
         if (in_array($lot['commercial_status'], ['reserved','sold'], true)) {
             return $lot['commercial_status'];

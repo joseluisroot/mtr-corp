@@ -24,6 +24,7 @@
  .state-reserved { @apply border-violet-100 bg-violet-50 text-violet-700; }
  .state-sold { @apply border-blue-100 bg-blue-50 text-blue-700; }
  .state-blocked { @apply border-slate-200 bg-slate-100 text-slate-500; }
+ .state-review { @apply border-orange-200 bg-orange-50 text-orange-800; }
  .lot-card { @apply relative block rounded-xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-brand-500 hover:shadow-md; }
  .lot-card::before { content:""; @apply absolute bottom-4 left-0 top-4 w-0.5 rounded-full bg-current; }
  .alert { @apply mb-5 rounded-xl border p-4 text-sm; }

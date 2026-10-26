@@ -21,5 +21,7 @@ final class InventoryStateTest extends CIUnitTestCase
         $this->assertSame('negotiating',InventoryState::effective($lot));
         $lot['project_active']=0;
         $this->assertSame('blocked',InventoryState::effective($lot));
+        $lot['import_review_required']=1;
+        $this->assertSame('review',InventoryState::effective($lot));
     }
 }

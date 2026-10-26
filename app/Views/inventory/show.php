@@ -18,7 +18,7 @@
 <?php endif ?>
 </div>
 </div>
-<div class="grid gap-6 xl:grid-cols-[1fr_320px]">
+<?php if(!empty($lot['import_review_required'])): ?><div class="alert border-orange-200 bg-orange-50 text-orange-900">Propiedad importada pendiente de expediente. Estado registrado en el Excel: <strong><?= esc($lot['legacy_status']) ?></strong>. No está disponible para nuevas operaciones hasta verificar sus antecedentes.</div><?php endif ?><div class="grid gap-6 xl:grid-cols-[1fr_320px]">
 <div class="space-y-6">
 <section class="card p-7">
 <h2 class="text-lg font-semibold">Información de la propiedad</h2>
@@ -156,7 +156,7 @@
 <?php foreach($lot['audit'] as $event): ?>
 <li class="border-l-2 border-brand-100 pl-4">
 <p class="text-xs font-semibold">
-<?= esc(['create'=>'Lote registrado','update'=>'Datos actualizados','price_revision'=>'Tarifa actualizada','compatibility'=>'Compatibilidad actualizada'][$event['action']]??$event['action']) ?>
+<?= esc(['import_create'=>'Lote importado','create'=>'Lote registrado','update'=>'Datos actualizados','price_revision'=>'Tarifa actualizada','compatibility'=>'Compatibilidad actualizada'][$event['action']]??$event['action']) ?>
 </p>
 <p class="mt-1 text-[11px] text-slate-400">
 <?= esc($event['created_at'].' · Usuario #'.$event['actor_id']) ?>

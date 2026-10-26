@@ -16,11 +16,12 @@ class AuthGroups extends \CodeIgniter\Shield\Config\AuthGroups
     public array $permissions = [
         'inventory.view'=>'Consultar inventario',
         'inventory.manage'=>'Crear y editar lotes, polígonos y catálogos',
+        'inventory.import'=>'Revisar y confirmar importaciones de inventario',
         'prices.manage'=>'Administrar compatibilidad y precios',
         'settings.manage'=>'Modificar plazos generales',
     ];
     public array $matrix = [
-        'admin'=>['inventory.view','inventory.manage','prices.manage','settings.manage'],
+        'admin'=>['inventory.view','inventory.manage','inventory.import','prices.manage','settings.manage'],
         'assistant'=>['inventory.view','inventory.manage'],
         'ceo'=>['inventory.view'], 'sales'=>['inventory.view'],
         'finance'=>['inventory.view'], 'viewer'=>['inventory.view'],
