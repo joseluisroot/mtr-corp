@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Acceso restringido</title>
-<link rel="stylesheet" href="<?= base_url('assets/app.css') ?>">
+<link rel="stylesheet" href="<?= asset_url('assets/app.css') ?>">
 <main class="mx-auto mt-24 max-w-lg p-6">
 <div class="card p-8">
 <p class="eyebrow">Permisos de acceso</p>

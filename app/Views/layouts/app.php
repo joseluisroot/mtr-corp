@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>
 <?= esc($title ?? 'Villa Verde') ?> · Villa Verde</title>
-<link rel="stylesheet" href="<?= base_url('assets/app.css') ?>">
-<link rel="stylesheet" href="<?= base_url('assets/interactions.css') ?>">
-<script defer src="<?= base_url('assets/interactions.js') ?>">
+<link rel="stylesheet" href="<?= asset_url('assets/app.css') ?>">
+<link rel="stylesheet" href="<?= asset_url('assets/interactions.css') ?>">
+<script defer src="<?= asset_url('assets/interactions.js') ?>">
 </script>
 </head>
 <body>

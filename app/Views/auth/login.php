@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ingresar · Villa Verde</title>
-<link rel="stylesheet" href="<?= base_url('assets/app.css') ?>">
+<link rel="stylesheet" href="<?= asset_url('assets/app.css') ?>">
 </head>
 <body>
 <main class="grid min-h-screen lg:grid-cols-2">
