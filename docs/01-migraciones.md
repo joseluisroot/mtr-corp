@@ -1,5 +1,7 @@
 # Etapa 1: estructura de inventario
 
+Este documento conserva las instrucciones de la primera entrega. Para el avance actual con interfaces y la migración 000004, continuar con [la guía de etapa 2](05-inventario-interfaz.md).
+
 Esta entrega prepara las tablas. Todavía no incorpora las pantallas, importación, ventas, pagos ni conciliación. Los permisos operativos se incorporarán junto con las acciones que protegen. Shield está instalado y el registro público está deshabilitado; no se han creado cuentas ni publicado rutas de acceso.
 
 ## Requisitos

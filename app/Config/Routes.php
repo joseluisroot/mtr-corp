@@ -1,6 +1,25 @@
 <?php
-
 use CodeIgniter\Router\RouteCollection;
-
 /** @var RouteCollection $routes */
-$routes->get('/', 'Home::index');
+$routes->setAutoRoute(false);
+$routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginView', ['as'=>'login']);
+$routes->post('login', '\CodeIgniter\Shield\Controllers\LoginController::loginAction', ['filter'=>'auth-rates']);
+$routes->post('logout', '\CodeIgniter\Shield\Controllers\LoginController::logoutAction', ['as'=>'logout','filter'=>'session']);
+$routes->group('', ['filter'=>'session'], static function($routes) {
+    $routes->get('/', 'Inventory::index',['filter'=>'inventory-access:inventory.view']);
+    $routes->get('inventario', 'Inventory::index',['filter'=>'inventory-access:inventory.view']);
+    $routes->get('inventario/nuevo', 'Inventory::form',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('inventario', 'Inventory::save',['filter'=>'inventory-access:inventory.manage']);
+    $routes->get('inventario/(:num)', 'Inventory::show/$1',['filter'=>'inventory-access:inventory.view']);
+    $routes->get('inventario/(:num)/editar', 'Inventory::form/$1',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('inventario/(:num)', 'Inventory::save/$1',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('inventario/(:num)/modelos', 'Inventory::compatibility/$1',['filter'=>'inventory-access:prices.manage']);
+    $routes->post('inventario/(:num)/precios', 'Inventory::price/$1',['filter'=>'inventory-access:prices.manage']);
+    $routes->get('catalogos', 'Inventory::catalogs',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('catalogos/(:segment)', 'Inventory::createCatalog/$1',['filter'=>'inventory-access:inventory.manage']);
+    $routes->get('catalogos/(:segment)/(:num)', 'Inventory::catalogForm/$1/$2',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('catalogos/(:segment)/(:num)', 'Inventory::updateCatalog/$1/$2',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('poligonos/(:num)/politica', 'Inventory::policy/$1',['filter'=>'inventory-access:inventory.manage']);
+    $routes->get('configuracion', 'Inventory::settings',['filter'=>'inventory-access:settings.manage']);
+    $routes->post('configuracion', 'Inventory::saveSettings',['filter'=>'inventory-access:settings.manage']);
+});

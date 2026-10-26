@@ -1,0 +1,16 @@
+{
+  "name": "mtr-villa-verde",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i resources/css/app.css -o public/assets/app.css --minify && esbuild resources/js/app.js --bundle --minify --outfile=public/assets/interactions.js"
+  },
+  "dependencies": {
+    "datatables.net-dt": "^2.3.0",
+    "sweetalert2": "^11.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0",
+    "esbuild": "^0.25.0"
+  }
+}
