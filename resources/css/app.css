@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@source "../../app/Views";
+@theme { --color-brand-50:#eff8f2; --color-brand-100:#d9efdf; --color-brand-500:#32a45e; --color-brand-600:#24834a; --color-brand-700:#1c653c; --color-ink:#1d3028; --font-sans:"Segoe UI",system-ui,sans-serif; }
+@layer base {
+ body { @apply bg-[#f4f6f3] text-ink antialiased; }
+ button,a,input,select,textarea { @apply outline-offset-4; }
+ button { @apply cursor-pointer; }
+ input:not([type=checkbox]):not([type=hidden]),select,textarea { @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-brand-600; }
+ label { @apply mb-1.5 block text-sm font-medium text-slate-600; }
+ th { @apply text-left text-xs font-semibold uppercase tracking-wider text-slate-500; }
+ td,th { @apply border-b border-slate-100 px-4 py-4; }
+}
+@layer components {
+ .card { @apply rounded-2xl border border-[#e3e9e3] bg-white shadow-[0_2px_8px_0_rgba(25,50,35,0.025)]; }
+ .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600 focus-visible:outline-2 focus-visible:outline-brand-500; }
+ .btn-secondary { @apply inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-ink hover:bg-brand-50; }
+ .nav-link { @apply flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-slate-500 transition hover:bg-brand-50 hover:text-brand-700; }
+ .nav-link.active { @apply bg-brand-50 font-semibold text-brand-700; }
+ .eyebrow { @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400; }
+ .badge { @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold; }
+ .badge::before { content:""; @apply h-1.5 w-1.5 rounded-full bg-current; }
+ .state-available { @apply border-emerald-100 bg-emerald-50 text-emerald-700; }
+ .state-negotiating { @apply border-amber-100 bg-amber-50 text-amber-700; }
+ .state-reserved { @apply border-violet-100 bg-violet-50 text-violet-700; }
+ .state-sold { @apply border-blue-100 bg-blue-50 text-blue-700; }
+ .state-blocked { @apply border-slate-200 bg-slate-100 text-slate-500; }
+ .state-review { @apply border-orange-200 bg-orange-50 text-orange-800; }
+ .lot-card { @apply relative block rounded-xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-brand-500 hover:shadow-md; }
+ .lot-card::before { content:""; @apply absolute bottom-4 left-0 top-4 w-0.5 rounded-full bg-current; }
+ .alert { @apply mb-5 rounded-xl border p-4 text-sm; }
+ .dt-container .dt-layout-row { @apply flex flex-wrap items-center justify-between gap-3 py-3 text-sm text-slate-500; }
+ .dt-container .dt-input { @apply ml-2 rounded-lg border border-slate-200 p-2; width:auto; }
+ .dt-container .dt-paging-button { @apply mx-0.5 rounded-lg border border-slate-200 px-3 py-1.5; }
+ .dt-container .dt-paging-button.current { @apply bg-brand-700 text-white; }
+ .dt-container .dt-paging-button.disabled { @apply opacity-40; }
+ .dt-column-order { @apply ml-2 opacity-40; }
+ .dt-orderable-asc,.dt-orderable-desc { @apply cursor-pointer; }
+ .dt-empty { @apply py-12 text-center text-slate-400; }
+ [hidden] { display:none !important; }
+}

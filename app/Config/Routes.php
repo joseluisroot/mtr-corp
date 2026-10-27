@@ -1,6 +1,52 @@
 <?php
-
 use CodeIgniter\Router\RouteCollection;
-
 /** @var RouteCollection $routes */
-$routes->get('/', 'Home::index');
+$routes->setAutoRoute(false);
+$routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginView', ['as'=>'login']);
+$routes->post('login', '\CodeIgniter\Shield\Controllers\LoginController::loginAction', ['filter'=>'auth-rates']);
+$routes->post('logout', '\CodeIgniter\Shield\Controllers\LoginController::logoutAction', ['as'=>'logout','filter'=>'session']);
+$routes->group('', ['filter'=>'session'], static function($routes) {
+    $routes->get('operaciones','Commercial::index',['filter'=>'inventory-access:commercial.view']);
+    $routes->get('operaciones/(:num)','Commercial::show/$1',['filter'=>'inventory-access:commercial.view']);
+    $routes->get('operaciones/(:num)/editar','Commercial::edit/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('operaciones/(:num)/editar','Commercial::revise/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->get('inventario/(:num)/operacion','Commercial::form/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->get('inventario/(:num)/historico','Commercial::form/$1/historico',['filter'=>'inventory-access:commercial.history']);
+    $routes->post('inventario/(:num)/negociar','Commercial::negotiate/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('inventario/(:num)/interesado','Commercial::interest/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('inventario/(:num)/historico','Commercial::historical/$1',['filter'=>'inventory-access:commercial.history']);
+    $routes->post('operaciones/(:num)/reservar','Commercial::transition/$1/reserved',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('operaciones/(:num)/vender','Commercial::transition/$1/sold',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('operaciones/(:num)/cancelar','Commercial::transition/$1/cancelled',['filter'=>'inventory-access:commercial.cancel']);
+    $routes->post('operaciones/(:num)/documentos','Commercial::attach/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->get('documentos-comerciales/(:num)','Commercial::download/$1',['filter'=>'inventory-access:commercial.view']);
+    $routes->get('clientes','Clients::index',['filter'=>'inventory-access:clients.view']);
+    $routes->get('clientes/nuevo','Clients::form',['filter'=>'inventory-access:clients.manage']);
+    $routes->post('clientes','Clients::save',['filter'=>'inventory-access:clients.manage']);
+    $routes->get('clientes/(:num)','Clients::show/$1',['filter'=>'inventory-access:clients.view']);
+    $routes->get('clientes/(:num)/editar','Clients::form/$1',['filter'=>'inventory-access:clients.manage']);
+    $routes->post('clientes/(:num)','Clients::save/$1',['filter'=>'inventory-access:clients.manage']);
+    $routes->get('inventario/(:num)/cliente','Clients::choose/$1',['filter'=>'inventory-access:clients.link']);
+    $routes->post('inventario/(:num)/cliente','Clients::link/$1',['filter'=>'inventory-access:clients.link']);
+    $routes->post('inventario/(:num)/cliente/desvincular','Clients::unlink/$1',['filter'=>'inventory-access:clients.link']);
+    $routes->get('importaciones','InventoryImport::index',['filter'=>'inventory-access:inventory.import']);
+    $routes->post('importaciones','InventoryImport::upload',['filter'=>'inventory-access:inventory.import']);
+    $routes->get('importaciones/(:num)','InventoryImport::show/$1',['filter'=>'inventory-access:inventory.import']);
+    $routes->post('importaciones/(:num)/confirmar','InventoryImport::confirm/$1',['filter'=>'inventory-access:inventory.import']);
+    $routes->get('/', 'Inventory::index',['filter'=>'inventory-access:inventory.view']);
+    $routes->get('inventario', 'Inventory::index',['filter'=>'inventory-access:inventory.view']);
+    $routes->get('inventario/nuevo', 'Inventory::form',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('inventario', 'Inventory::save',['filter'=>'inventory-access:inventory.manage']);
+    $routes->get('inventario/(:num)', 'Inventory::show/$1',['filter'=>'inventory-access:inventory.view']);
+    $routes->get('inventario/(:num)/editar', 'Inventory::form/$1',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('inventario/(:num)', 'Inventory::save/$1',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('inventario/(:num)/modelos', 'Inventory::compatibility/$1',['filter'=>'inventory-access:prices.manage']);
+    $routes->post('inventario/(:num)/precios', 'Inventory::price/$1',['filter'=>'inventory-access:prices.manage']);
+    $routes->get('catalogos', 'Inventory::catalogs',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('catalogos/(:segment)', 'Inventory::createCatalog/$1',['filter'=>'inventory-access:inventory.manage']);
+    $routes->get('catalogos/(:segment)/(:num)', 'Inventory::catalogForm/$1/$2',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('catalogos/(:segment)/(:num)', 'Inventory::updateCatalog/$1/$2',['filter'=>'inventory-access:inventory.manage']);
+    $routes->post('poligonos/(:num)/politica', 'Inventory::policy/$1',['filter'=>'inventory-access:inventory.manage']);
+    $routes->get('configuracion', 'Inventory::settings',['filter'=>'inventory-access:settings.manage']);
+    $routes->post('configuracion', 'Inventory::saveSettings',['filter'=>'inventory-access:settings.manage']);
+});
