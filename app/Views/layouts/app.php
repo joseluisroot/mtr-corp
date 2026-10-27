@@ -20,7 +20,7 @@
 <div class="px-5">
 <p class="eyebrow mb-3 px-4">Espacio de trabajo</p>
 <nav class="space-y-1" aria-label="Navegación principal">
-<?php foreach (['inventario'=>['Inventario','▦','inventory.view'],'clientes'=>['Clientes','◎','clients.view'],'catalogos'=>['Catálogos','◇','inventory.manage'],'importaciones'=>['Importar inventario','↑','inventory.import'],'configuracion'=>['Configuración','⚙','settings.manage']] as $url=>[$text,$icon,$permission]): if (!auth()->user()->can($permission)) continue; ?>
+<?php foreach (['inventario'=>['Inventario','▦','inventory.view'],'clientes'=>['Clientes','◎','clients.view'],'operaciones'=>['Operaciones','⇄','commercial.view'],'catalogos'=>['Catálogos','◇','inventory.manage'],'importaciones'=>['Importar inventario','↑','inventory.import'],'configuracion'=>['Configuración','⚙','settings.manage']] as $url=>[$text,$icon,$permission]): if (!auth()->user()->can($permission)) continue; ?>
 <a class="nav-link <?= str_starts_with(uri_string(),$url)?'active':'' ?>" href="<?= site_url($url) ?>">
 <span aria-hidden="true" class="text-lg">
 <?= $icon ?>

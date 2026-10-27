@@ -20,13 +20,18 @@ class AuthGroups extends \CodeIgniter\Shield\Config\AuthGroups
         'clients.view'=>'Consultar clientes y expedientes',
         'clients.manage'=>'Crear y editar clientes',
         'clients.link'=>'Vincular clientes a expedientes de propiedades',
+        'commercial.view'=>'Consultar operaciones y respaldos comerciales',
+        'commercial.manage'=>'Registrar interesados, negociar y confirmar reservas/ventas',
+        'commercial.history'=>'Verificar reservas y ventas históricas',
+        'commercial.cancel'=>'Cancelar interesados, negociaciones y reservas con motivo',
+        'commercial.price_override'=>'Autorizar precios pactados diferentes del catálogo',
         'prices.manage'=>'Administrar compatibilidad y precios',
         'settings.manage'=>'Modificar plazos generales',
     ];
     public array $matrix = [
-        'admin'=>['inventory.view','inventory.manage','inventory.import','prices.manage','settings.manage','clients.view','clients.manage','clients.link'],
-        'assistant'=>['inventory.view','inventory.manage','clients.view','clients.manage','clients.link'],
-        'ceo'=>['inventory.view','clients.view'], 'sales'=>['inventory.view','clients.view','clients.manage','clients.link'],
-        'finance'=>['inventory.view','clients.view'], 'viewer'=>['inventory.view'],
+        'admin'=>['inventory.view','inventory.manage','inventory.import','prices.manage','settings.manage','clients.view','clients.manage','clients.link','commercial.view','commercial.manage','commercial.history','commercial.cancel','commercial.price_override'],
+        'assistant'=>['inventory.view','inventory.manage','clients.view','clients.manage','clients.link','commercial.view'],
+        'ceo'=>['inventory.view','clients.view','commercial.view','commercial.history','commercial.cancel','commercial.price_override'], 'sales'=>['inventory.view','clients.view','clients.manage','clients.link','commercial.view','commercial.manage'],
+        'finance'=>['inventory.view','clients.view','commercial.view'], 'viewer'=>['inventory.view'],
     ];
 }

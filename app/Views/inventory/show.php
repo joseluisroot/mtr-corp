@@ -39,6 +39,7 @@
 </p>
 </section>
 <?= $this->include('clients/property_file') ?>
+<?= $this->include('commercial/property') ?>
 
 <section class="card p-7">
 <h2 class="text-lg font-semibold">Precio de solo lote</h2>

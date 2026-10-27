@@ -20,3 +20,16 @@ document.querySelectorAll('form[data-confirm]').forEach(form=>form.addEventListe
 }));
 const menu=document.querySelector('[data-menu]');
 menu?.addEventListener('click',()=>{const panel=document.querySelector('[data-sidebar]');panel.classList.toggle('hidden');menu.setAttribute('aria-expanded',String(!panel.classList.contains('hidden')));});
+
+document.querySelectorAll('[data-commercial-form]').forEach(form=>{
+ const kind=form.querySelector('[data-kind]'); const intent=form.querySelector('[data-intent]');
+ const refresh=()=>{
+  const termsEnabled=!intent || intent.value==='negotiating';
+  form.querySelectorAll('[data-terms]').forEach(fieldset=>{fieldset.hidden=!termsEnabled;fieldset.disabled=!termsEnabled;});
+  form.querySelectorAll('[data-house-field]').forEach(section=>{
+   const visible=termsEnabled && kind.value==='lot_house';section.hidden=!visible;
+   section.querySelectorAll('input,select').forEach(input=>{input.disabled=!visible;});
+  });
+ };
+ kind?.addEventListener('change',refresh);intent?.addEventListener('change',refresh);refresh();
+});

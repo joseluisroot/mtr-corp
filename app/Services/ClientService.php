@@ -79,6 +79,7 @@ final class ClientService
         if(mb_strlen($reason)<5 || mb_strlen($reason)>500) throw new DomainException('Indica un motivo de desvinculación, entre 5 y 500 caracteres.');
         $this->transaction(function() use($lotId,$expectedLinkId,$reason,$actor) {
             $this->lock('lots',$lotId);$link=$this->propertyFile($lotId);
+            if($this->db->tableExists($this->db->prefixTable('commercial_operations'),false) && $this->db->table('commercial_operations')->where('lot_id',$lotId)->whereIn('state',['reserved','sold'])->countAllResults()) throw new DomainException('El cliente forma parte de una reserva o venta vigente. La corrección debe gestionarse en el módulo comercial.');
             if(!$link || (int)$link['id']!==$expectedLinkId) throw new DomainException('El vínculo cambió. Recarga la ficha antes de continuar.');
             $this->db->table('client_property_links')->where('id',$expectedLinkId)->update(['is_active'=>0,'ended_by'=>$actor,'ended_at'=>\CodeIgniter\I18n\Time::now(config('App')->appTimezone)->toDateTimeString(),'end_reason'=>$reason]);
             $this->audit('lots',(string)$lotId,'client_unlink',['link_id'=>$expectedLinkId,'client_id'=>$link['client_id']],$actor);

@@ -20,7 +20,8 @@ final class Inventory extends BaseController
     {
         try { $lot=$this->service()->detail($id); } catch (\DomainException $e) { throw PageNotFoundException::forPageNotFound(); }
         $clientService=new \App\Services\ClientService();
-        return view('inventory/show',['title'=>$lot['polygon_code'].'-'.$lot['number'],'lot'=>$lot,'catalogs'=>$this->service()->catalogs(),'labels'=>InventoryState::LABELS,'clientModuleInstalled'=>$clientService->installed(),'clientFile'=>auth()->user()->can('clients.view')?$clientService->propertyFile($id):null]);
+        $commercial=new \App\Services\CommercialService();
+        return view('inventory/show',['title'=>$lot['polygon_code'].'-'.$lot['number'],'lot'=>$lot,'catalogs'=>$this->service()->catalogs(),'labels'=>InventoryState::LABELS,'clientModuleInstalled'=>$clientService->installed(),'clientFile'=>auth()->user()->can('clients.view')?$clientService->propertyFile($id):null,'commercialInstalled'=>$commercial->installed(),'commercialOperations'=>auth()->user()->can('commercial.view')?$commercial->forLot($id):[]]);
     }
     public function form(?int $id=null): string
     {

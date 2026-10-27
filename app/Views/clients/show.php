@@ -40,7 +40,7 @@
 </section>
 <section class="card mt-6 overflow-x-auto p-7">
 <h2 class="text-lg font-semibold">Propiedades vinculadas al expediente</h2>
-<p class="mb-5 mt-2 text-sm text-slate-500">Estos vínculos identifican antecedentes. Las ventas, inversión, depósitos y saldos se mostrarán al implementar sus módulos.</p>
+<p class="mb-5 mt-2 text-sm text-slate-500">Estos vínculos identifican antecedentes. Las operaciones verificadas se muestran en la sección comercial; los depósitos y saldos se incorporarán con cartera.</p>
 <table class="w-full">
 <thead>
 <tr>
@@ -77,4 +77,5 @@
 </tbody>
 </table>
 </section>
+<?= $this->include('commercial/client') ?>
 <?= $this->endSection() ?>

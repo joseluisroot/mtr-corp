@@ -6,6 +6,20 @@ $routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginVie
 $routes->post('login', '\CodeIgniter\Shield\Controllers\LoginController::loginAction', ['filter'=>'auth-rates']);
 $routes->post('logout', '\CodeIgniter\Shield\Controllers\LoginController::logoutAction', ['as'=>'logout','filter'=>'session']);
 $routes->group('', ['filter'=>'session'], static function($routes) {
+    $routes->get('operaciones','Commercial::index',['filter'=>'inventory-access:commercial.view']);
+    $routes->get('operaciones/(:num)','Commercial::show/$1',['filter'=>'inventory-access:commercial.view']);
+    $routes->get('operaciones/(:num)/editar','Commercial::edit/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('operaciones/(:num)/editar','Commercial::revise/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->get('inventario/(:num)/operacion','Commercial::form/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->get('inventario/(:num)/historico','Commercial::form/$1/historico',['filter'=>'inventory-access:commercial.history']);
+    $routes->post('inventario/(:num)/negociar','Commercial::negotiate/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('inventario/(:num)/interesado','Commercial::interest/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('inventario/(:num)/historico','Commercial::historical/$1',['filter'=>'inventory-access:commercial.history']);
+    $routes->post('operaciones/(:num)/reservar','Commercial::transition/$1/reserved',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('operaciones/(:num)/vender','Commercial::transition/$1/sold',['filter'=>'inventory-access:commercial.manage']);
+    $routes->post('operaciones/(:num)/cancelar','Commercial::transition/$1/cancelled',['filter'=>'inventory-access:commercial.cancel']);
+    $routes->post('operaciones/(:num)/documentos','Commercial::attach/$1',['filter'=>'inventory-access:commercial.manage']);
+    $routes->get('documentos-comerciales/(:num)','Commercial::download/$1',['filter'=>'inventory-access:commercial.view']);
     $routes->get('clientes','Clients::index',['filter'=>'inventory-access:clients.view']);
     $routes->get('clientes/nuevo','Clients::form',['filter'=>'inventory-access:clients.manage']);
     $routes->post('clientes','Clients::save',['filter'=>'inventory-access:clients.manage']);

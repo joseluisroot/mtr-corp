@@ -21,7 +21,8 @@ final class Clients extends BaseController
     public function show(int $id): string
     {
         try { $client=(new ClientService())->detail($id); } catch(\DomainException) { throw PageNotFoundException::forPageNotFound(); }
-        return view('clients/show',['title'=>$client['full_name'],'client'=>$client]);
+        $commercial=new \App\Services\CommercialService();
+        return view('clients/show',['title'=>$client['full_name'],'client'=>$client,'commercialOperations'=>auth()->user()->can('commercial.view')?$commercial->forClient($id):[],'commitments'=>auth()->user()->can('commercial.view')?$commercial->commitments($id):[]]);
     }
     public function save(?int $id=null)
     {

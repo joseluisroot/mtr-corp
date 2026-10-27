@@ -31,9 +31,10 @@ final class InventoryService
         if (!empty($filters['polygon'])) $q->where('p.id',(int)$filters['polygon']);
         if (!empty($filters['q'])) {
             $search=mb_substr((string)$filters['q'],0,100);
-            $q->groupStart()->like('l.number',$search)->orLike('p.code',$search)->orLike('j.name',$search)->groupEnd();
+            $q->groupStart()->like('l.number',$search)->orLike('p.code',$search)->orLike('j.name',$search)->orLike("CONCAT(p.code, '-', l.number)",$search)->groupEnd();
         }
         $rows=$q->orderBy('j.id')->orderBy('p.code')->orderBy('l.number')->get()->getResultArray();
+        $rows=(new CommercialService($this->db))->decorateInventory($rows);
         foreach ($rows as &$row) $row['effective_status']=InventoryState::effective($row);
         unset($row);
         if (!empty($filters['status'])) $rows=array_values(array_filter($rows,fn($r)=>$r['effective_status']===$filters['status']));
