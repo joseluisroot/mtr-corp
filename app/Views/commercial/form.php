@@ -50,8 +50,8 @@
 <div>
 <label for="intent">Acción</label>
 <select id="intent" name="intent" data-intent>
-<option value="negotiating" <?= old('intent','negotiating')==='negotiating'?'selected':' ?>>Asignar negociación con plazo</option>
-<option value="interested" <?= old('intent')==='interested'?'selected':' ?>>Registrar solo como interesado</option>
+<option value="negotiating" <?= old('intent','negotiating')==='negotiating'?'selected':'' ?>>Asignar negociación con plazo</option>
+<option value="interested" <?= old('intent')==='interested'?'selected':'' ?>>Registrar solo como interesado</option>
 </select>
 </div>
 <div>
