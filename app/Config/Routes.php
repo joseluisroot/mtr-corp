@@ -6,6 +6,15 @@ $routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginVie
 $routes->post('login', '\CodeIgniter\Shield\Controllers\LoginController::loginAction', ['filter'=>'auth-rates']);
 $routes->post('logout', '\CodeIgniter\Shield\Controllers\LoginController::logoutAction', ['as'=>'logout','filter'=>'session']);
 $routes->group('', ['filter'=>'session'], static function($routes) {
+    $routes->get('clientes','Clients::index',['filter'=>'inventory-access:clients.view']);
+    $routes->get('clientes/nuevo','Clients::form',['filter'=>'inventory-access:clients.manage']);
+    $routes->post('clientes','Clients::save',['filter'=>'inventory-access:clients.manage']);
+    $routes->get('clientes/(:num)','Clients::show/$1',['filter'=>'inventory-access:clients.view']);
+    $routes->get('clientes/(:num)/editar','Clients::form/$1',['filter'=>'inventory-access:clients.manage']);
+    $routes->post('clientes/(:num)','Clients::save/$1',['filter'=>'inventory-access:clients.manage']);
+    $routes->get('inventario/(:num)/cliente','Clients::choose/$1',['filter'=>'inventory-access:clients.link']);
+    $routes->post('inventario/(:num)/cliente','Clients::link/$1',['filter'=>'inventory-access:clients.link']);
+    $routes->post('inventario/(:num)/cliente/desvincular','Clients::unlink/$1',['filter'=>'inventory-access:clients.link']);
     $routes->get('importaciones','InventoryImport::index',['filter'=>'inventory-access:inventory.import']);
     $routes->post('importaciones','InventoryImport::upload',['filter'=>'inventory-access:inventory.import']);
     $routes->get('importaciones/(:num)','InventoryImport::show/$1',['filter'=>'inventory-access:inventory.import']);

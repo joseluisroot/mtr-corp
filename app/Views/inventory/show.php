@@ -38,6 +38,8 @@
 <?= esc($lot['notes'] ?: 'Sin observaciones registradas.') ?>
 </p>
 </section>
+<?= $this->include('clients/property_file') ?>
+
 <section class="card p-7">
 <h2 class="text-lg font-semibold">Precio de solo lote</h2>
 <?php $now=date('Y-m-d H:i:s');$current=array_values(array_filter($lot['prices'],fn($p)=>$p['valid_from']<=$now && (!$p['valid_until'] || $p['valid_until']>$now))); ?>
@@ -156,7 +158,7 @@
 <?php foreach($lot['audit'] as $event): ?>
 <li class="border-l-2 border-brand-100 pl-4">
 <p class="text-xs font-semibold">
-<?= esc(['import_create'=>'Lote importado','create'=>'Lote registrado','update'=>'Datos actualizados','price_revision'=>'Tarifa actualizada','compatibility'=>'Compatibilidad actualizada'][$event['action']]??$event['action']) ?>
+<?= esc(['client_link'=>'Cliente vinculado','client_unlink'=>'Cliente desvinculado','import_create'=>'Lote importado','create'=>'Lote registrado','update'=>'Datos actualizados','price_revision'=>'Tarifa actualizada','compatibility'=>'Compatibilidad actualizada'][$event['action']]??$event['action']) ?>
 </p>
 <p class="mt-1 text-[11px] text-slate-400">
 <?= esc($event['created_at'].' · Usuario #'.$event['actor_id']) ?>

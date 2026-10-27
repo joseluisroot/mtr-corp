@@ -19,7 +19,8 @@ final class Inventory extends BaseController
     public function show(int $id): string
     {
         try { $lot=$this->service()->detail($id); } catch (\DomainException $e) { throw PageNotFoundException::forPageNotFound(); }
-        return view('inventory/show',['title'=>$lot['polygon_code'].'-'.$lot['number'],'lot'=>$lot,'catalogs'=>$this->service()->catalogs(),'labels'=>InventoryState::LABELS]);
+        $clientService=new \App\Services\ClientService();
+        return view('inventory/show',['title'=>$lot['polygon_code'].'-'.$lot['number'],'lot'=>$lot,'catalogs'=>$this->service()->catalogs(),'labels'=>InventoryState::LABELS,'clientModuleInstalled'=>$clientService->installed(),'clientFile'=>auth()->user()->can('clients.view')?$clientService->propertyFile($id):null]);
     }
     public function form(?int $id=null): string
     {
